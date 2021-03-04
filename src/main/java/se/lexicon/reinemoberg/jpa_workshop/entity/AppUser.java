@@ -3,17 +3,17 @@ package se.lexicon.reinemoberg.jpa_workshop.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity //Define class as database entity (Table)
+//@Entity //Define class as database entity (Table)
 public class AppUser {
 
-    @Id                                                 //Primary key for the table
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Means auto_increment
+    //@Id                                                 //Primary key for the table
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) //Means auto_increment
     private int appUserId;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String firstName;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String lastName;
-    @Column(nullable = false, length = 100, unique = true)  //Unique value required
+    //@Column(nullable = false, length = 100, unique = true)  //Unique value required
     private String email;
 
     public AppUser() {

@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.text.NumberFormat;
 import java.util.Objects;
 
-@Entity  //Define class as database entity (Table)
+//@Entity  //Define class as database entity (Table)
 public class Product {
 
-    @Id                                                 //Primary key for the table
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Means auto_increment
+    //@Id                                                 //Primary key for the table
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) //Means auto_increment
     private int productId;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String name;
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private double price;
 
     public Product() {
