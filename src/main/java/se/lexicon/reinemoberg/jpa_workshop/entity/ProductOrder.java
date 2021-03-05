@@ -4,16 +4,33 @@ import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 //@Entity
 public class ProductOrder {
 
     private int productOrderId;
-    LocalDateTime orderDateTime;
-    List<OrderItem> orderItemList;
-    AppUser customer;
+    private LocalDateTime orderDateTime;
+    private List<OrderItem> orderItemList;
+    private AppUser customer;
 
     public ProductOrder() {
+    }
+
+    public void addOrderItem (OrderItem orderItem){
+        orderItemList.add(orderItem);
+        orderItem.setProductOrder(this);
+    }
+
+    public void removeOrderItem(OrderItem orderItem){
+        orderItem.setProductOrder(null);
+        orderItemList.remove(orderItem);
+    }
+
+    public double totalPrice() {
+        return orderItemList.stream()
+                .map(OrderItem::price)
+                .reduce(0d, Double::sum);
     }
 
     public int getProductOrderId() {
