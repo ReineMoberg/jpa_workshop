@@ -1,17 +1,25 @@
 package se.lexicon.reinemoberg.jpa_workshop.entity;
 
-import javax.persistence.Entity;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-//@Entity
+@Entity
 public class ProductOrder {
 
+    @Id                                                 //Primary key for the table
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Means auto_increment
     private int productOrderId;
+    @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
     private LocalDateTime orderDateTime;
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "productOrder")
     private List<OrderItem> orderItemList;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "app_user_id")
     private AppUser customer;
 
     public ProductOrder() {

@@ -3,15 +3,19 @@ package se.lexicon.reinemoberg.jpa_workshop.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-//@Entity //Define class as database entity (Table)
+@Entity //Define class as database entity (Table)
 public class OrderItem {
 
-    //@Id                                                 //Primary key for the table
-    //@GeneratedValue(strategy = GenerationType.IDENTITY) //Means auto_increment
+    @Id                                                 //Primary key for the table
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Means auto_increment
     private int orderItemId;
-    //@Column(nullable = false, columnDefinition = "integer default 0")
+    @Column(nullable = false, columnDefinition = "integer default 0")
     private int quantity;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "product_id")
     private Product product;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "product_order_id")
     private ProductOrder productOrder;
 
     public OrderItem() {
