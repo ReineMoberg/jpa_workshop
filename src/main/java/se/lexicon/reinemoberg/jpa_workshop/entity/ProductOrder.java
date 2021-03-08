@@ -16,9 +16,12 @@ public class ProductOrder {
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
     private LocalDateTime orderDateTime;
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "productOrder")
+    @OneToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
+            orphanRemoval = true,
+            mappedBy = "productOrder")
     private List<OrderItem> orderItemList;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "app_user_id")
     private AppUser customer;
 
