@@ -18,6 +18,17 @@ public class Product {
     public Product() {
     }
 
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(int productId, String name, double price) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+    }
+
     public int getProductId() {
         return productId;
     }

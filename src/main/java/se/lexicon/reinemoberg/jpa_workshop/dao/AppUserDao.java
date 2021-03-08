@@ -4,10 +4,11 @@ import se.lexicon.reinemoberg.jpa_workshop.entity.AppUser;
 import se.lexicon.reinemoberg.jpa_workshop.entity.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AppUserDao {
 
-    // basic CRUD
+    //Basic CRUD
     AppUser create(AppUser appUser);
 
     AppUser findById(int id);
@@ -19,5 +20,8 @@ public interface AppUserDao {
     AppUser merge(AppUser appUser);
 
     List<AppUser> saveAllAppUsers(List<AppUser> appUsers);
+
+    //Custom CRUD
+    Optional<AppUser> findAppUserByEmail(String email);
 
 }

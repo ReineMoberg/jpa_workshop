@@ -15,7 +15,6 @@ public class ProductDaoImpl implements ProductDao{
     @PersistenceContext
     EntityManager entityManager;
 
-
     @Override
     @Transactional
     public Product create(Product product) {

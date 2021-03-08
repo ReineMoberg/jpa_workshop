@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductDao {
 
-    // basic CRUD
+    //Basic CRUD
     Product create(Product product);
 
     Product findById(int id);
@@ -19,6 +19,6 @@ public interface ProductDao {
 
     List<Product> saveAllProducts(List<Product> products);
 
-    // custom CRUD
+    //Custom CRUD
     List<Product> findProductByName(String productName);
 }

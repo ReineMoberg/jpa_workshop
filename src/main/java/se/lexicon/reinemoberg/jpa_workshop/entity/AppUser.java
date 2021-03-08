@@ -19,6 +19,19 @@ public class AppUser {
     public AppUser() {
     }
 
+    public AppUser(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public AppUser(int appUserId, String firstName, String lastName, String email) {
+        this.appUserId = appUserId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public int getAppUserId() {
         return appUserId;
     }

@@ -21,8 +21,29 @@ public class OrderItem {
     public OrderItem() {
     }
 
+    public OrderItem(int quantity, Product product) {
+        this.quantity = quantity;
+        this.product = product;
+    }
+
+    public OrderItem(int quantity, Product product, ProductOrder productOrder) {
+        this.quantity = quantity;
+        this.product = product;
+        this.productOrder = productOrder;
+    }
+
+    public OrderItem(int orderItemId, int quantity, Product product, ProductOrder productOrder) {
+        this.orderItemId = orderItemId;
+        this.quantity = quantity;
+        this.product = product;
+        this.productOrder = productOrder;
+    }
+
     public double price() {
-        return (quantity * product.getPrice());
+        if (product.getPrice() != 0 || getQuantity() != 0) {
+            return (quantity * product.getPrice());
+        }
+        return 0;
     }
 
     public int getOrderItemId() {

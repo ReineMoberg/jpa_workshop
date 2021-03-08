@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AppUserDaoImpl implements AppUserDao{
@@ -51,9 +52,15 @@ public class AppUserDaoImpl implements AppUserDao{
     @Override
     @Transactional
     public List<AppUser> saveAllAppUsers(List<AppUser> appUsers) {
-        for (AppUser appUser:appUsers){
+        for (AppUser appUser : appUsers) {
             create(appUser);
         }
         return appUsers;
+    }
+
+    @Override
+    public Optional<AppUser> findAppUserByEmail(String email) {
+        Optional<AppUser> result = Optional.of(entityManager.find(AppUser.class, email));
+        return result;
     }
 }

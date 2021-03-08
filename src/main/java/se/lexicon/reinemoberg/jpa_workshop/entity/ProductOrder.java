@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,21 +22,55 @@ public class ProductOrder {
             orphanRemoval = true,
             mappedBy = "productOrder")
     private List<OrderItem> orderItemList;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "app_user_id")
     private AppUser customer;
 
     public ProductOrder() {
     }
 
-    public void addOrderItem (OrderItem orderItem){
+    public ProductOrder(LocalDateTime orderDateTime, AppUser customer) {
+        this.orderDateTime = orderDateTime;
+        this.customer = customer;
+    }
+
+    public ProductOrder(LocalDateTime orderDateTime, List<OrderItem> orderItemList, AppUser customer) {
+        this.orderDateTime = orderDateTime;
+        this.orderItemList = orderItemList;
+        this.customer = customer;
+    }
+
+    public ProductOrder(int productOrderId, LocalDateTime orderDateTime, List<OrderItem> orderItemList, AppUser customer) {
+        this.productOrderId = productOrderId;
+        this.orderDateTime = orderDateTime;
+        this.orderItemList = orderItemList;
+        this.customer = customer;
+    }
+
+    public ProductOrder(int productOrderId, LocalDateTime orderDateTime, AppUser customer) {
+        this.productOrderId = productOrderId;
+        this.orderDateTime = orderDateTime;
+        this.customer = customer;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        if (orderItemList == null) {
+            orderItemList = new ArrayList<>();
+        }
         orderItemList.add(orderItem);
         orderItem.setProductOrder(this);
     }
 
-    public void removeOrderItem(OrderItem orderItem){
-        orderItem.setProductOrder(null);
+    public void removeOrderItem(OrderItem orderItem) {
+        if (orderItemList != null) {
+            orderItemList = new ArrayList<>();
+        }
+        if (orderItem == null) {
+            throw new IllegalArgumentException("orderItem is null");
+        }
         orderItemList.remove(orderItem);
+        orderItem.setProductOrder(null);
     }
 
     public double totalPrice() {
